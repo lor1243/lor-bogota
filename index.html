@@ -71,7 +71,7 @@
             <button class="tab" onclick="showTab(1)">ð DÃ­as</button>
             <button class="tab" onclick="showTab(2)">âï¸ Vuelos</button>
             <button class="tab" onclick="showTab(3)">ð¨ Hotel</button>
-            <button class="tab" onclick="showTab(4)">ð° PlÃ¡tica</button>
+            <button class="tab" onclick="showTab(4)">ð° Plática</button>
         </div>
 
         <div class="content">
@@ -107,7 +107,7 @@
 
                 <div class="card">
                     <h3>ð Hora Local</h3>
-                    <div class="time-row"><span>ð¨ð´ BogotÃ¡</span><span id="time-bog">--:--</span></div>
+                    <div class="time-row"><span>ð¨ð´ Bogotá</span><span id="time-bog">--:--</span></div>
                     <div class="time-row"><span>ðºð¸ New York</span><span id="time-nyc">--:--</span></div>
                     <div class="time-row"><span>ðºð¸ Miami</span><span id="time-mia">--:--</span></div>
                 </div>
@@ -253,12 +253,12 @@
                 {d:'15 Jul - MiÃ©', c:'NYC Museos', a:'MET o Museo Historia Natural, Central Park'},
                 {d:'16 Jul - Jue', c:'NYC Shopping', a:'5ta Avenida, SoHo, Brooklyn Bridge'},
                 {d:'17 Jul - Vie', c:'NYC â MIA', a:'Vuelo a Miami, Check-in Loews South Beach'},
-                {d:'18 Jul - SÃ¡b', c:'Miami Beach', a:'Playa, Ocean Drive, Lincoln Road'},
+                {d:'18 Jul - Sáb', c:'Miami Beach', a:'Playa, Ocean Drive, Lincoln Road'},
                 {d:'19 Jul - Dom', c:'Miami Shopping', a:'Dolphin Mall o Sawgrass Mills'},
                 {d:'20 Jul - Lun', c:'Miami Downtown', a:'Bayside, Brickell, Wynwood Walls'},
                 {d:'21 Jul - Mar', c:'Key Biscayne', a:'Playa Crandon Park, Bill Baggs Lighthouse'},
                 {d:'22 Jul - MiÃ©', c:'Ãltimo dÃ­a MIA', a:'Compras finales, empacar'},
-                {d:'23 Jul - Jue', c:'Regreso BOG', a:'Vuelo Miami â BogotÃ¡'}
+                {d:'23 Jul - Jue', c:'Regreso BOG', a:'Vuelo Miami â Bogotá'}
             ];
             document.getElementById('itinerary').innerHTML = days.map(day =>
                 `<div class="day-card"><div class="day-date">${day.d}</div><strong>${day.c}</strong><br><span style="font-size:0.9rem; opacity:0.8">${day.a}</span></div>`
