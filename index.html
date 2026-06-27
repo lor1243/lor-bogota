@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Travel Pro | NYC + Miami 2026</title>
+    <style>
+        :root {
+            --navy: #0f172a; --blue: #3b82f6; --gold: #f59e0b; --bg: #f8fafc; --card: #ffffff;
+            --text: #1e293b; --border: #e2e8f0; --success: #10b981; --danger: #ef4444;
+        }
+        [data-theme="dark"] {
+            --bg: #0f172a; --card: #1e293b; --text: #f1f5f9; --border: #334155; --navy: #1e293b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); transition: all 0.3s; }
+     .app { max-width: 500px; margin: 0 auto; min-height: 100vh; background: var(--bg); }
+        header { background: linear-gradient(135deg, var(--navy), var(--blue)); color: white; padding: 20px 16px 16px; position: sticky; top: 0; z-index: 100; }
+     .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        h1 { font-size: 1.4rem; font-weight: 700; }
+     .theme-toggle { background: rgba(255,255,255,0.2); border: none; color: white; padding: 8px 12px; border-radius: 20px; font-size: 0.9rem; }
+     .countdown { background: rgba(255,255,255,0.15); padding: 8px 12px; border-radius: 12px; text-align: center; font-size: 0.9rem; }
+     .countdown strong { font-size: 1.1rem; display: block; }
+     .tabs { display: flex; background: var(--card); border-bottom: 1px solid var(--border); overflow-x: auto; }
+     .tab { flex: 1; min-width: 80px; padding: 14px 8px; text-align: center; font-size: 0.8rem; font-weight: 600; border: none; background: none; color: var(--text); opacity: 0.6; }
+     .tab.active { opacity: 1; color: var(--blue); border-bottom: 2px solid var(--blue); }
+     .content { padding: 16px; padding-bottom: 80px; }
+     .section { display: none; animation: fadeIn 0.3s; }
+     .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+     .card { background: var(--card); border-radius: 16px; padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+     .card h3 { font-size: 1.1rem; margin-bottom: 12px; color: var(--blue); display: flex; align-items: center; gap: 8px; }
+     .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+     .stat { text-align: center; padding: 12px; background: var(--bg); border-radius: 12px; }
+     .stat-value { font-size: 1.3rem; font-weight: 700; color: var(--navy); }
+     .stat-label { font-size: 0.75rem; opacity: 0.7; margin-top: 4px; }
+     .progress-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; margin: 8px 0; }
+     .progress { height: 100%; background: var(--gold); transition: width 0.3s; }
+     .time-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
+     .time-row:last-child { border-bottom: none; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { font-size: 0.75rem; opacity: 0.7; font-weight: 600; }
+        input, select { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 1rem; }
+     .input-group { margin-bottom: 12px; }
+     .input-group label { display: block; font-size: 0.85rem; margin-bottom: 6px; font-weight: 600; }
+     .btn { background: var(--blue); color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 600; width: 100%; font-size: 1rem; }
+     .day-card { border-left: 4px solid var(--blue); padding-left: 12px; margin-bottom: 16px; }
+     .day-date { font-weight: 700; color: var(--blue); margin-bottom: 8px; }
+     .checkbox { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+        [data-theme="dark"].stat-value { color: var(--gold); }
+    </style>
+</head>
+<body data-theme="light">
+    <div class="app">
+        <header>
+            <div class="header-top">
+                <h1>âï¸ NYC + Miami 2026</h1>
+                <button class="theme-toggle" onclick="toggleTheme()">ð</button>
+            </div>
+            <div class="countdown">
+                Faltan <strong id="days-left">--</strong> dÃ­as para el viaje
+                <div style="font-size:0.8rem; opacity:0.9; margin-top:4px;">13 al 23 de julio 2026</div>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab(0)">ð  Inicio</button>
+            <button class="tab" onclick="showTab(1)">ð DÃ­as</button>
+            <button class="tab" onclick="showTab(2)">âï¸ Vuelos</button>
+            <button class="tab" onclick="showTab(3)">ð¨ Hotel</button>
+            <button class="tab" onclick="showTab(4)">ð° PlÃ¡tica</button>
+        </div>
+
+        <div class="content">
+            <!-- DASHBOARD -->
+            <div class="section active" id="tab-0">
+                <div class="card">
+                    <h3>ð Resumen General</h3>
+                    <div class="stat-grid">
+                        <div class="stat">
+                            <div class="stat-value">10</div>
+                            <div class="stat-label">Noches</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Ciudades</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">$6.3K</div>
+                            <div class="stat-label">Presupuesto Min</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">$10.5K</div>
+                            <div class="stat-label">Presupuesto Max</div>
+                        </div>
+                    </div>
+                    <div style="margin-top:16px;">
+                        <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:6px;">
+                            <span>Presupuesto usado</span><span id="budget-used">$0 / $8,400</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress" id="budget-progress" style="width:0%"></div></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>ð Hora Local</h3>
+                    <div class="time-row"><span>ð¨ð´ BogotÃ¡</span><span id="time-bog">--:--</span></div>
+                    <div class="time-row"><span>ðºð¸ New York</span><span id="time-nyc">--:--</span></div>
+                    <div class="time-row"><span>ðºð¸ Miami</span><span id="time-mia">--:--</span></div>
+                </div>
+
+                <div class="card">
+                    <h3>ð± Conversor USD â COP</h3>
+                    <div class="input-group">
+                        <label>Tasa de cambio</label>
+                        <input type="number" id="rate" value="3450" oninput="convert()">
+                    </div>
+                    <div class="input-group">
+                        <label>USD</label>
+                        <input type="number" id="usd" value="100" oninput="convert()">
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="cop-result">$345,000 COP</div>
+                        <div class="stat-label">Resultado</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITINERARIO -->
+            <div class="section" id="tab-1">
+                <div class="card">
+                    <h3>ð Itinerario 13-23 Julio</h3>
+                    <div id="itinerary"></div>
+                </div>
+            </div>
+
+            <!-- VUELOS -->
+            <div class="section" id="tab-2">
+                <div class="card">
+                    <h3>âï¸ Vuelos Confirmados</h3>
+                    <table>
+                        <tr><th>Fecha</th><th>Ruta</th><th>AerolÃ­nea</th></tr>
+                        <tr><td>13 Jul</td><td>BOG â NYC</td><td>Avianca</td></tr>
+                        <tr><td>17/18 Jul</td><td>NYC â MIA</td><td>JetBlue</td></tr>
+                        <tr><td>23 Jul</td><td>MIA â BOG</td><td>Avianca</td></tr>
+                    </table>
+                </div>
+                <div class="card">
+                    <h3>ð Equipaje</h3>
+                    <div class="checkbox"><input type="checkbox" id="eq1"><label for="eq1">Pasaportes + Visa</label></div>
+                    <div class="checkbox"><input type="checkbox" id="eq2"><label for="eq2">Seguro de viaje</label></div>
+                    <div class="checkbox"><input type="checkbox" id="eq3"><label for="eq3">Confirmaciones vuelos</label></div>
+                </div>
+            </div>
+
+            <!-- HOTELES -->
+            <div class="section" id="tab-3">
+                <div class="card">
+                    <h3>ð¨ New York: 13-17/18 Jul</h3>
+                    <p><strong>Pod Times Square</strong><br>Midtown Manhattan<br>Check-in: 3:00 PM</p>
+                </div>
+                <div class="card">
+                    <h3>ð¨ Miami: 18-23 Jul</h3>
+                    <p><strong>Loews Miami Beach Hotel</strong><br>South Beach<br>Check-in: 4:00 PM</p>
+                </div>
+            </div>
+
+            <!-- PRESUPUESTO -->
+            <div class="section" id="tab-4">
+                <div class="card">
+                    <h3>ð° Presupuesto Inteligente</h3>
+                    <div class="input-group"><label>Vuelos (2 personas)</label><input type="number" id="b-vuelos" value="2300" oninput="calcBudget()"></div>
+                    <div class="input-group"><label>Hoteles 10 noches</label><input type="number" id="b-hoteles" value="2800" oninput="calcBudget()"></div>
+                    <div class="input-group"><label>Comida</label><input type="number" id="b-comida" value="1500" oninput="calcBudget()"></div>
+                    <div class="input-group"><label>Compras</label><input type="number" id="b-compras" value="1000" oninput="calcBudget()"></div>
+                    <div class="input-group"><label>Atracciones</label><input type="number" id="b-atrac" value="600" oninput="calcBudget()"></div>
+                    <div class="input-group"><label>Transporte</label><input type="number" id="b-trans" value="400" oninput="calcBudget()"></div>
+                    <div class="stat" style="margin-top:16px;">
+                        <div class="stat-value" id="total-budget">$8,600</div>
+                        <div class="stat-label">TOTAL ESTIMADO USD</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="total-cop">$29,670,000 COP</div>
+                        <div class="stat-label">TOTAL EN PESOS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tabs
+        function showTab(n) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + n).classList.add('active');
+            document.querySelectorAll('.tab')[n].classList.add('active');
+        }
+
+        // Theme
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.querySelector('.theme-toggle');
+            if (body.dataset.theme === 'light') {
+                body.dataset.theme = 'dark'; btn.textContent = 'âï¸';
+            } else {
+                body.dataset.theme = 'light'; btn.textContent = 'ð';
+            }
+        }
+
+        // Countdown
+        function updateCountdown() {
+            const trip = new Date('2026-07-13'); const today = new Date();
+            const diff = Math.ceil((trip - today) / (1000 * 60 * 60 * 24));
+            document.getElementById('days-left').textContent = diff > 0? diff : 0;
+        }
+
+        // Clocks
+        function updateClocks() {
+            const opt = { hour: '2-digit', minute: '2-digit' };
+            document.getElementById('time-bog').textContent = new Date().toLocaleTimeString('es-CO', {...opt, timeZone: 'America/Bogota'});
+            document.getElementById('time-nyc').textContent = new Date().toLocaleTimeString('es-CO', {...opt, timeZone: 'America/New_York'});
+            document.getElementById('time-mia').textContent = new Date().toLocaleTimeString('es-CO', {...opt, timeZone: 'America/New_York'});
+        }
+
+        // Converter
+        function convert() {
+            const rate = parseFloat(document.getElementById('rate').value) || 3450;
+            const usd = parseFloat(document.getElementById('usd').value) || 0;
+            document.getElementById('cop-result').textContent = '$' + (usd * rate).toLocaleString('es-CO') + ' COP';
+        }
+
+        // Budget
+        function calcBudget() {
+            const vals = ['b-vuelos','b-hoteles','b-comida','b-compras','b-atrac','b-trans'].map(id =>
+                parseFloat(document.getElementById(id).value) || 0);
+            const total = vals.reduce((a,b) => a+b, 0);
+            const rate = parseFloat(document.getElementById('rate').value) || 3450;
+            document.getElementById('total-budget').textContent = '$' + total.toLocaleString('en-US');
+            document.getElementById('total-cop').textContent = '$' + (total * rate).toLocaleString('es-CO') + ' COP';
+            document.getElementById('budget-used').textContent = '$' + total.toLocaleString('en-US') + ' / $8,400';
+            document.getElementById('budget-progress').style.width = Math.min((total/8400)*100, 100) + '%';
+        }
+
+        // Itinerary
+        function loadItinerary() {
+            const days = [
+                {d:'13 Jul - Lun', c:'Llegada NYC', a:'Check-in Pod Times Square, Times Square noche'},
+                {d:'14 Jul - Mar', c:'NYC Centro', a:'Estatua Libertad, Wall Street, 9/11 Memorial'},
+                {d:'15 Jul - MiÃ©', c:'NYC Museos', a:'MET o Museo Historia Natural, Central Park'},
+                {d:'16 Jul - Jue', c:'NYC Shopping', a:'5ta Avenida, SoHo, Brooklyn Bridge'},
+                {d:'17 Jul - Vie', c:'NYC â MIA', a:'Vuelo a Miami, Check-in Loews South Beach'},
+                {d:'18 Jul - SÃ¡b', c:'Miami Beach', a:'Playa, Ocean Drive, Lincoln Road'},
+                {d:'19 Jul - Dom', c:'Miami Shopping', a:'Dolphin Mall o Sawgrass Mills'},
+                {d:'20 Jul - Lun', c:'Miami Downtown', a:'Bayside, Brickell, Wynwood Walls'},
+                {d:'21 Jul - Mar', c:'Key Biscayne', a:'Playa Crandon Park, Bill Baggs Lighthouse'},
+                {d:'22 Jul - MiÃ©', c:'Ãltimo dÃ­a MIA', a:'Compras finales, empacar'},
+                {d:'23 Jul - Jue', c:'Regreso BOG', a:'Vuelo Miami â BogotÃ¡'}
+            ];
+            document.getElementById('itinerary').innerHTML = days.map(day =>
+                `<div class="day-card"><div class="day-date">${day.d}</div><strong>${day.c}</strong><br><span style="font-size:0.9rem; opacity:0.8">${day.a}</span></div>`
+            ).join('');
+        }
+
+        // Init
+        updateCountdown(); updateClocks(); convert(); calcBudget(); loadItinerary();
+        setInterval(updateClocks, 60000);
+
+        // Save checkboxes
+        document.querySelectorAll('input[type=checkbox]').forEach(cb => {
+            cb.checked = localStorage.getItem(cb.id) === 'true';
+            cb.onchange = () => localStorage.setItem(cb.id, cb.checked);
+        });
+    </script>
+</body>
+</html>
