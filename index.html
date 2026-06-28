@@ -10,17 +10,6 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
-.map-container {
-height: 400px;
-width: 100%;
-border-radius: 12px;
-margin-top: 8px;
-}
-#travelMap {
-height: 400px !important;
-width: 100% !important;
-}
-    <style>
 /* MAPA */
 .map-container {
 height: 400px;
@@ -35,17 +24,29 @@ width: 100% !important;
 }
 
 /* MATA EL ESPACIO NEGRO GIGANTE */
-#tab-5, #tab-5 .section, #tab-5 .card {
-min-height: auto !important;
+#mapa, .tab-content, .section, .card, .app {
+min-height: 0 !important;
 height: auto !important;
-padding: 16px !important;
+padding: 0 !important;
 margin: 0 !important;
 }
 </style>
 
-</style>
 
-    <style>
+/* MATA EL ESPACIO NEGRO GIGANTE - VERSIÓN FINAL */
+#mapa, #mapa .section, #mapa .card,
+.tab-content, .section, .card {
+min-height: 0 !important;
+height: auto !important;
+padding: 16px !important;
+margin: 0 !important;
+display: block !important;
+}
+    .app, .tab-content {
+min-height: 0 !important;
+height: auto !important;
+}
+
         :root {
             --navy: #0f172a; --blue: #3b82f6; --gold: #f59e0b; --bg: #f8fafc; --card: #ffffff;
             --text: #1e293b; --border: #e2e8f0; --success: #10b981; --danger: #ef4444;
