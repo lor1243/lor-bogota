@@ -52,6 +52,18 @@
      .checkbox { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
         [data-theme="dark"].stat-value { color: var(--gold); }
     </style>
+    <!-- Leaflet CSS para Mapas -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+.map-container {
+height: 400px;
+border-radius: 12px;
+margin: 16px 0;
+border: 2px solid var(--border);
+}
+</style>
 </head>
 <body data-theme="dark">
     <div class="app">
