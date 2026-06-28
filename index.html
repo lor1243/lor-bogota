@@ -229,6 +229,7 @@ border: 2px solid var(--border);
 <option value="atrac">Atracciones</option>
 </select>
 <button onclick="addGasto()" style="width:100%; padding:10px; background:#4CAF50; color:white; border:none; border-radius:6px; font-weight:bold;">AÑADIR GASTO</button>
+<button onclick="verGastos()" style="width:100%;background:#1e3a8a;color:#fbbf24;font-weight:bold;padding:10px;border:2px solid #fbbf24;border-radius:6px;margin-top:8px;">📋 VER HISTORIAL</button>
 </div>
 
                     <div class="stat" style="margin-top:16px;">
@@ -344,7 +345,7 @@ compras: vals[3], atracciones: vals[4], transporte: vals[5], rate: rate
 };
 localStorage.setItem('mike_budget', JSON.stringify(datos));
 }
-// AÑADIR GASTO RÁPIDO MIKE 💰
+        // AÑADIR GASTO RÁPIDO MIKE 💰 + HISTORIAL
 function addGasto() {
 const nombre = document.getElementById('gasto-nombre').value;
 const valor = parseFloat(document.getElementById('gasto-valor').value) || 0;
@@ -355,12 +356,23 @@ if (!nombre || valor <= 0) return alert('Pon nombre y valor MIKE');
 const campo = document.getElementById('b-' + cat);
 campo.value = (parseFloat(campo.value) || 0) + valor;
 
+// GUARDA EL GASTO EN EL HISTORIAL 👇 ESTO FALTABA
+let historial = JSON.parse(localStorage.getItem('mike_gastos') || '[]');
+historial.push({
+nombre: nombre,
+valor: valor,
+categoria: cat,
+fecha: new Date().toLocaleDateString('es-CO')
+});
+localStorage.setItem('mike_gastos', JSON.stringify(historial));
+
 document.getElementById('gasto-nombre').value = '';
 document.getElementById('gasto-valor').value = '';
 calcBudget();
 
 alert(`✅ ${nombre}: $${valor} añadido a ${cat}`);
 }
+
 
 
         // Itinerary
@@ -493,6 +505,47 @@ if (datos.rate) document.getElementById('rate').value = datos.rate;
 }
 calcBudget(); // Calcula con los datos cargados
 });
+// AÑADIR GASTO RÁPIDO MIKE 💰 + HISTORIAL
+function addGasto() {
+const nombre = document.getElementById('gasto-nombre').value;
+const valor = parseFloat(document.getElementById('gasto-valor').value) || 0;
+const cat = document.getElementById('gasto-categoria').value;
+
+if (!nombre || valor <= 0) return alert('Pon nombre y valor MIKE');
+
+const campo = document.getElementById('b-' + cat);
+campo.value = (parseFloat(campo.value) || 0) + valor;
+
+let historial = JSON.parse(localStorage.getItem('mike_gastos') || '[]');
+historial.push({
+nombre: nombre,
+valor: valor,
+categoria: cat,
+fecha: new Date().toLocaleDateString('es-CO')
+});
+localStorage.setItem('mike_gastos', JSON.stringify(historial));
+
+document.getElementById('gasto-nombre').value = '';
+document.getElementById('gasto-valor').value = '';
+calcBudget();
+
+alert(`✅ ${nombre}: $${valor} añadido a ${cat}`);
+}
+
+// VER HISTORIAL DE GASTOS MIKE
+function verGastos() {
+let historial = JSON.parse(localStorage.getItem('mike_gastos') || '[]');
+if (historial.length === 0) return alert('No hay gastos aún MIKE');
+
+let lista = '📋 TUS GASTOS MIKE:\n\n';
+let total = 0;
+historial.forEach(g => {
+lista += `• ${g.nombre}: $${g.valor} - ${g.categoria} (${g.fecha})\n`;
+total += g.valor;
+});
+lista += `\n💰 TOTAL GASTADO: $${total}`;
+alert(lista);
+}
 
 </script>
 <button onclick="borrarRuta()" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; padding: 12px 16px; background: #ef4444; color: white; border: none; border-radius: 12px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
