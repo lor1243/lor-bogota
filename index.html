@@ -240,7 +240,7 @@ let mapInitialized = false;
 function initMap() {
 if (mapInitialized) return;
 
-const map = L.map('map');
+const map = L.map('travelMap');
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 attribution: '© OpenStreetMap'
@@ -256,7 +256,7 @@ L.marker([25.7907, -80.1300]).bindPopup('<b>South Beach</b><br>Día 5')
 
 const group = L.featureGroup(markers).addTo(map);
 map.fitBounds(group.getBounds().pad(0.3));
-
+setTimeout(() => { map.invalidateSize() }, 200);
 
 mapInitialized = true;
 }
