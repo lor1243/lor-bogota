@@ -57,8 +57,8 @@
     <div class="app">
         <header>
             <div class="header-top">
-                <h1>âï¸ NYC + Miami 2026</h1>
-                <button class="theme-toggle" onclick="toggleTheme()">ð</button>
+                <h1>✈️ NYC + Miami 2026</h1>
+                <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
             </div>
             <div class="countdown">
                 Faltan <strong id="days-left">--</strong> días para el viaje
@@ -67,18 +67,18 @@
         </header>
 
         <div class="tabs">
-            <button class="tab active" onclick="showTab(0)">ð  Inicio</button>
-            <button class="tab" onclick="showTab(1)">ð Días</button>
-            <button class="tab" onclick="showTab(2)">âï¸ Vuelos</button>
-            <button class="tab" onclick="showTab(3)">ð¨ Hotel</button>
-            <button class="tab" onclick="showTab(4)">ð° Plática</button>
+            <button class="tab active" onclick="showTab(0)">🏠  Inicio</button>
+            <button class="tab" onclick="showTab(1)">🗓️ Días</button>
+            <button class="tab" onclick="showTab(2)">✈️ Vuelos</button>
+            <button class="tab" onclick="showTab(3)">🏨 Hotel</button>
+            <button class="tab" onclick="showTab(4)">💬 Plática</button>
         </div>
 
         <div class="content">
             <!-- DASHBOARD -->
             <div class="section active" id="tab-0">
                 <div class="card">
-                    <h3>ð Resumen General</h3>
+                    <h3>📈 Resumen General</h3>
                     <div class="stat-grid">
                         <div class="stat">
                             <div class="stat-value">10</div>
@@ -106,14 +106,15 @@
                 </div>
 
                 <div class="card">
-                    <h3>ð Hora Local</h3>
-                    <div class="time-row"><span>ð¨ð´ Bogotá</span><span id="time-bog">--:--</span></div>
-                    <div class="time-row"><span>ðºð¸ New York</span><span id="time-nyc">--:--</span></div>
-                    <div class="time-row"><span>ðºð¸ Miami</span><span id="time-mia">--:--</span></div>
+                    <h3>⏱️ Hora Local</h3>
+                    <div class="time-row"><span>🇨🇴 Bogotá</span><span id="time-bog">--:--</span></div>
+                    <div class="time-row"><span>🇺🇸 New York</span><span id="time-nyc">--:--</span></div>
+                    <div class="time-row"><span>🇺🇸 New York</span><span id="time-nyc">--:--</span></div>
+                    <div class="time-row"><span> Miami</span><span id="time-mia">--:--</span></div>
                 </div>
 
                 <div class="card">
-                    <h3>ð± Conversor USD â COP</h3>
+                    <h3>💱 Conversor USD â COP</h3>
                     <div class="input-group">
                         <label>Tasa de cambio</label>
                         <input type="number" id="rate" value="3450" oninput="convert()">
