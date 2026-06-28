@@ -84,6 +84,7 @@ border: 2px solid var(--border);
             <button class="tab" onclick="showTab(2)">✈️ Vuelos</button>
             <button class="tab" onclick="showTab(3)">🏨 Hotel</button>
             <button class="tab" onclick="showTab(4)">💬 Plática</button>
+            <button class="tab" onclick="showTab(5)">🗺️ Mapa</button>
         </div>
 
         <div class="content">
@@ -203,6 +204,15 @@ border: 2px solid var(--border);
             </div>
         </div>
     </div>
+    <div class="section" id="tab-5">
+<div class="card">
+<h3>🗺️ Mapa del Viaje NYC + Miami</h3>
+<div id="travelMap" class="map-container"></div>
+<p style="margin-top:12px; opacity:0.8; font-size:0.9rem;">
+<strong>Tips:</strong> Toca los marcadores para ver cada lugar
+</p>
+</div>
+</div>
 
     <script>
         // Tabs
@@ -212,7 +222,30 @@ border: 2px solid var(--border);
             document.getElementById('tab-' + n).classList.add('active');
             document.querySelectorAll('.tab')[n].classList.add('active');
         }
+// Mapa Leaflet
+let mapInitialized = false;
 
+function initMap() {
+if (mapInitialized) return;
+
+const map = L.map('travelMap').setView([40.7580, -73.9855], 12);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+attribution: '© OpenStreetMap'
+}).addTo(map);
+
+L.marker([40.7580, -73.9855]).addTo(map).bindPopup('<b>Times Square</b><br>Día 1');
+L.marker([40.7484, -73.9857]).addTo(map).bindPopup('<b>Empire State</b><br>Día 2');
+L.marker([40.7061, -74.0088]).addTo(map).bindPopup('<b>Wall Street</b><br>Día 3');
+L.marker([25.7617, -80.1918]).addTo(map).bindPopup('<b>Downtown Miami</b><br>Día 4');
+L.marker([25.7907, -80.1300]).addTo(map).bindPopup('<b>South Beach</b><br>Día 5');
+
+mapInitialized = true;
+}
+
+document.querySelector('button[onclick="showTab(5)"]').addEventListener('click', () => {
+setTimeout(initMap, 100);
+});
         // Theme
         function toggleTheme() {
             const body = document.body;
