@@ -14,7 +14,7 @@
 height: 400px;
 width: 100%;
 border-radius: 12px;
-margin-top: 12px;
+margin-top: 8px;
 }
 </style>
 
@@ -240,17 +240,23 @@ let mapInitialized = false;
 function initMap() {
 if (mapInitialized) return;
 
-const map = L.map('travelMap').setView([40.7580, -73.9855], 12);
+const map = L.map('map');
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 attribution: '© OpenStreetMap'
 }).addTo(map);
 
-L.marker([40.7580, -73.9855]).addTo(map).bindPopup('<b>Times Square</b><br>Día 1');
-L.marker([40.7484, -73.9857]).addTo(map).bindPopup('<b>Empire State</b><br>Día 2');
-L.marker([40.7061, -74.0088]).addTo(map).bindPopup('<b>Wall Street</b><br>Día 3');
-L.marker([25.7617, -80.1918]).addTo(map).bindPopup('<b>Downtown Miami</b><br>Día 4');
-L.marker([25.7907, -80.1300]).addTo(map).bindPopup('<b>South Beach</b><br>Día 5');
+const markers = [
+L.marker([40.7580, -73.9855]).bindPopup('<b>Times Square</b><br>Día 1'),
+L.marker([40.7484, -73.9857]).bindPopup('<b>Empire State</b><br>Día 2'),
+L.marker([40.7061, -74.0088]).bindPopup('<b>Wall Street</b><br>Día 3'),
+L.marker([25.7617, -80.1918]).bindPopup('<b>Downtown Miami</b><br>Día 4'),
+L.marker([25.7907, -80.1300]).bindPopup('<b>South Beach</b><br>Día 5')
+];
+
+const group = L.featureGroup(markers).addTo(map);
+map.fitBounds(group.getBounds().pad(0.3));
+
 
 mapInitialized = true;
 }
