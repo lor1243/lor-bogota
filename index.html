@@ -352,5 +352,95 @@ setTimeout(initMap, 100);
             cb.onchange = () => localStorage.setItem(cb.id, cb.checked);
         });
     </script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+// 1. CREA EL MAPA
+const map = L.map('travelMap').setView([4.7110, -74.0721], 13);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+attribution: '© OpenStreetMap'
+}).addTo(map);
+
+// 2. VARIABLES
+let userMarker;
+let ruta = JSON.parse(localStorage.getItem('mike_ruta')) || []; // Carga ruta guardada
+let heatPoints = JSON.parse(localStorage.getItem('mike_heat')) || [];
+let lineaRuta;
+let heatLayer;
+
+// 3. DIBUJA LA RUTA GUARDADA AL CARGAR
+if (ruta.length > 0) {
+lineaRuta = L.polyline(ruta, {color: '#3b82f6', weight: 4}).addTo(map);
+heatLayer = L.heatLayer(heatPoints, {radius: 25, blur: 15}).addTo(map);
+map.fitBounds(lineaRuta.getBounds()); // Hace zoom a tu ruta completa
+}
+
+// 4. FUNCIÓN PARA GUARDAR EN LOCALSTORAGE
+function guardarRuta() {
+localStorage.setItem('mike_ruta', JSON.stringify(ruta));
+localStorage.setItem('mike_heat', JSON.stringify(heatPoints));
+}
+
+// 5. TRACKING EN TIEMPO REAL
+function iniciarTracking() {
+if ("geolocation" in navigator) {
+navigator.geolocation.watchPosition(function(position) {
+const lat = position.coords.latitude;
+const lng = position.coords.longitude;
+
+// Guarda el punto nuevo
+ruta.push([lat, lng]);
+heatPoints.push([lat, lng, 1]);
+guardarRuta(); // Guarda cada vez que te mueves
+
+// Actualiza tu marcador
+if (userMarker) {
+userMarker.setLatLng([lat, lng]);
+} else {
+userMarker = L.marker([lat, lng]).addTo(map)
+.bindPopup('Estás aquí MIKE 🚀').openPopup();
+}
+
+// Redibuja la línea
+if (lineaRuta) map.removeLayer(lineaRuta);
+lineaRuta = L.polyline(ruta, {color: '#3b82f6', weight: 4}).addTo(map);
+
+// Actualiza heatmap
+if (heatLayer) map.removeLayer(heatLayer);
+heatLayer = L.heatLayer(heatPoints, {radius: 25, blur: 15}).addTo(map);
+
+map.panTo([lat, lng]);
+
+}, function(error) {
+console.log('Error GPS: ' + error.message);
+}, {
+enableHighAccuracy: true,
+maximumAge: 0,
+timeout: 5000
+});
+}
+}
+
+// 6. BOTÓN PARA BORRAR RUTA - Por si quieres resetear
+function borrarRuta() {
+if (confirm('MIKE ¿Seguro quieres borrar toda tu ruta?')) {
+localStorage.removeItem('mike_ruta');
+localStorage.removeItem('mike_heat');
+location.reload(); // Recarga la app limpia
+}
+}
+
+// 7. INICIA
+iniciarTracking();
+
+// Si quieres un botón de borrar, agrega esto en tu HTML:
+
+});
+</script>
+<button onclick="borrarRuta()" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; padding: 12px 16px; background: #ef4444; color: white; border: none; border-radius: 12px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+🗑️ Borrar mi ruta
+</button>
 </body>
 </html>
