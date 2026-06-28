@@ -217,6 +217,20 @@ border: 2px solid var(--border);
                     <div class="input-group"><label>Compras</label><input type="number" id="b-compras" value="1000" oninput="calcBudget()"></div>
                     <div class="input-group"><label>Atracciones</label><input type="number" id="b-atrac" value="600" oninput="calcBudget()"></div>
                     <div class="input-group"><label>Transporte</label><input type="number" id="b-trans" value="400" oninput="calcBudget()"></div>
+                    <!-- AÑADIR GASTO RÁPIDO MIKE -->
+<div style="margin-top:20px; padding:15px; background:#1a1a2e; border-radius:12px; border:1px solid #4CAF50;">
+<h3 style="color:#4CAF50; margin:0 0 10px 0; font-size:16px;">➕ Añadir Gasto Rápido</h3>
+<input id="gasto-nombre" type="text" placeholder="Ej: Nike, Cena, Uber" style="width:100%; padding:8px; margin-bottom:8px; background:#0f0f23; border:1px solid #333; color:white; border-radius:6px;">
+<input id="gasto-valor" type="number" placeholder="Valor USD" style="width:100%; padding:8px; margin-bottom:8px; background:#0f0f23; border:1px solid #333; color:white; border-radius:6px;">
+<select id="gasto-categoria" style="width:100%; padding:8px; margin-bottom:10px; background:#0f0f23; border:1px solid #333; color:white; border-radius:6px;">
+<option value="compras">Compras</option>
+<option value="comida">Comida</option>
+<option value="transporte">Transporte</option>
+<option value="atrac">Atracciones</option>
+</select>
+<button onclick="addGasto()" style="width:100%; padding:10px; background:#4CAF50; color:white; border:none; border-radius:6px; font-weight:bold;">AÑADIR GASTO</button>
+</div>
+
                     <div class="stat" style="margin-top:16px;">
                         <div class="stat-value" id="total-budget">$8,600</div>
                         <div class="stat-label">TOTAL ESTIMADO USD</div>
@@ -329,6 +343,23 @@ vuelos: vals[0], hoteles: vals[1], comida: vals[2],
 compras: vals[3], atracciones: vals[4], transporte: vals[5], rate: rate
 };
 localStorage.setItem('mike_budget', JSON.stringify(datos));
+}
+// AÑADIR GASTO RÁPIDO MIKE 💰
+function addGasto() {
+const nombre = document.getElementById('gasto-nombre').value;
+const valor = parseFloat(document.getElementById('gasto-valor').value) || 0;
+const cat = document.getElementById('gasto-categoria').value;
+
+if (!nombre || valor <= 0) return alert('Pon nombre y valor MIKE');
+
+const campo = document.getElementById('b-' + cat);
+campo.value = (parseFloat(campo.value) || 0) + valor;
+
+document.getElementById('gasto-nombre').value = '';
+document.getElementById('gasto-valor').value = '';
+calcBudget();
+
+alert(`✅ ${nombre}: $${valor} añadido a ${cat}`);
 }
 
 
