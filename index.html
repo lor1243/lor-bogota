@@ -513,10 +513,10 @@ const cat = document.getElementById('gasto-categoria').value;
 
 if (!nombre || valor <= 0) return alert('Pon nombre y valor MIKE');
 
-    const campo = document.getElementById('b-' + cat.toLowerCase());
-if (campo) {
-campo.value = (parseFloat(campo.value) || 0) + valor;
-}
+    //const campo = document.getElementById('b-' + cat.toLowerCase());
+//if (campo) {
+//campo.value = (parseFloat(campo.value) || 0) + valor;
+//}
 
 let historial = JSON.parse(localStorage.getItem('mike_gastos') || '[]');
 historial.push({
